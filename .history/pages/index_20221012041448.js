@@ -15,8 +15,8 @@ export default function Home() {
     }
     return result;
   };
-  const [qrcode, setQrcode] = useState('');
-  const [auth, setAuth] = useState();
+
+  const [auth, setAuth] = useState([]);
   const [fields, setFields] = useState({
     number: '',
     email: '',
@@ -51,7 +51,6 @@ export default function Home() {
 
   socket.on('qr', function (data) {
     console.log(data);
-    setQrcode(data.src);
   });
 
   socket.on('ready', function (data) {
@@ -89,7 +88,7 @@ export default function Home() {
 
       <div>
         <img
-          src={qrcode}
+          src="./images/wa.png"
           width="200px"
           height="200px"
           alt="Connecting..."
@@ -97,7 +96,7 @@ export default function Home() {
         />
       </div>
       <div>
-        {auth?.map((session, index) => (
+        {auth.map((session, index) => (
           <div key={index}>
             <div>{session.id}</div>
             <div>{session.userid}</div>

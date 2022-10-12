@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
 import { io } from 'socket.io-client';
+import uuid from 'uuid';
 
 const socket = io('http://localhost:3000', {
   transports: ['websocket'],
 });
 
 export default function Home() {
-  const makeid = (length) => {
-    var result = '';
-    var characters = 'abcdefghijklmnopqrstuvwxyz';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  };
-  const [qrcode, setQrcode] = useState('');
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState([]);
   const [fields, setFields] = useState({
     number: '',
     email: '',
@@ -27,16 +18,16 @@ export default function Home() {
 
     setFields((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [e.target.number]: e.target.value,
     }));
   };
 
   const handleClick = (e) => {
     e.preventDefault();
     socket.emit('create-session', {
-      id: makeid(7),
-      userid: fields.email,
-      description: fields.number,
+      id: uuid['v4'](),
+      userid: email,
+      description: number,
     });
   };
 
@@ -51,7 +42,6 @@ export default function Home() {
 
   socket.on('qr', function (data) {
     console.log(data);
-    setQrcode(data.src);
   });
 
   socket.on('ready', function (data) {
@@ -89,7 +79,7 @@ export default function Home() {
 
       <div>
         <img
-          src={qrcode}
+          src="./images/wa.png"
           width="200px"
           height="200px"
           alt="Connecting..."
@@ -97,7 +87,7 @@ export default function Home() {
         />
       </div>
       <div>
-        {auth?.map((session, index) => (
+        {auth.map((session, index) => (
           <div key={index}>
             <div>{session.id}</div>
             <div>{session.userid}</div>

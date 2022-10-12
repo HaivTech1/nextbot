@@ -16,7 +16,7 @@ export default function Home() {
     return result;
   };
   const [qrcode, setQrcode] = useState('');
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState([]);
   const [fields, setFields] = useState({
     number: '',
     email: '',

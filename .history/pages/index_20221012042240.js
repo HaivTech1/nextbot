@@ -97,7 +97,7 @@ export default function Home() {
         />
       </div>
       <div>
-        {auth?.map((session, index) => (
+        {auth.map((session, index) => (
           <div key={index}>
             <div>{session.id}</div>
             <div>{session.userid}</div>

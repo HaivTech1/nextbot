@@ -16,7 +16,7 @@ export default function Home() {
     return result;
   };
   const [qrcode, setQrcode] = useState('');
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState([]);
   const [fields, setFields] = useState({
     number: '',
     email: '',
@@ -96,16 +96,7 @@ export default function Home() {
           id="qrcode"
         />
       </div>
-      <div>
-        {auth?.map((session, index) => (
-          <div key={index}>
-            <div>{session.id}</div>
-            <div>{session.userid}</div>
-            <div>{session.description}</div>
-            <div>{session.ready}</div>
-          </div>
-        ))}
-      </div>
+      <div></div>
     </div>
   );
 }
